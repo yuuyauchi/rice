@@ -2,26 +2,11 @@
 
 @section('this_page_content')
 
-    <h1>顧客リスト新規追加ページ</h1>
+    <h1>{{ $customer->userName }}さんの過去データ編集ページ</h1>
 
     <div class="row">
         <div class="col-6">
-            {!! Form::model($customer, ['route' => 'customers.store']) !!}
-
-                <div class="form-group">
-                    {!! Form::label('userName', '名前:') !!}
-                    {!! Form::text('userName', null, ['class' => 'form-control']) !!}
-                </div>
-                
-                <div class="form-group">
-                    {!! Form::label('address', '住所:') !!}
-                    {!! Form::text('address', null, ['class' => 'form-control']) !!}
-                </div>
-                
-                <div class="form-group">
-                    {!! Form::label('telephoneNumber', '電話番号:') !!}
-                    {!! Form::text('telephoneNumber', null, ['class' => 'form-control']) !!}
-                </div>
+            {!! Form::model($customer, ['route' => ['pastdata.update', $customer->id], 'method' => 'put']) !!}
                 
                 <div class="form-group">
                     {!! Form::label('usageTimesEver', '今までの利用回数:') !!}
@@ -57,13 +42,8 @@
                     {!! Form::label('riceVariety', 'お米の品種:') !!}
                     {!! Form::text('riceVariety', null, ['class' => 'form-control']) !!}
                 </div>
-                
-                <div class="form-group">
-                    {!! Form::label('whereToShip', '袋の種類（出荷先）:') !!}
-                    {!! Form::text('whereToShip', null, ['class' => 'form-control']) !!}
-                </div>
 
-                {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('更新', ['class' => 'btn btn-primary']) !!}
 
             {!! Form::close() !!}
         </div>

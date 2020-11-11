@@ -1,19 +1,23 @@
-@extends('layouts.app')
-
-@section('this_page_content')
-
-@section('title', 'Dashboard')
-
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
+@extends('adminlte::page')
 
 @section('content')
-    <div class="container">
-        <div class="response"></div>
-        <div id='calendar'></div>
-    </div>
-    <script>
+
+    <div class="response"></div>
+      <div id='calendar'></div>  
+
+@endsection
+
+@section('css')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" />
+@endsection
+
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+ 
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
+
+<script>
 $(document).ready(function () {
 var SITEURL = "{{url('/')}}";
 $.ajaxSetup({
@@ -23,7 +27,7 @@ headers: {
 });
 var calendar = $('#calendar').fullCalendar({
 editable: true,
-events: SITEURL + "/fullcalendareventmaster",
+events: SITEURL + "/fullcalendar",
 displayEventTime: true,
 editable: true,
 eventRender: function (event, element, view) {
@@ -41,9 +45,9 @@ if (title) {
 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
 $.ajax({
-url: SITEURL + "/fullcalendareventmaster/create",
+url: SITEURL + "/fullcalendar/create",
 data: 'title=' + title + '&start=' + start + '&end=' + end,
-type: "POST",
+type: "GET",
 success: function (data) {
 displayMessage("Added Successfully");
 }
@@ -64,7 +68,7 @@ eventDrop: function (event, delta) {
 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
 var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
 $.ajax({
-url: SITEURL + '/fullcalendareventmaster/update',
+url: SITEURL + '/fullcalendar/update',
 data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
 type: "POST",
 success: function (response) {
@@ -77,7 +81,7 @@ var deleteMsg = confirm("Do you really want to delete?");
 if (deleteMsg) {
 $.ajax({
 type: "POST",
-url: SITEURL + '/fullcalendareventmaster/delete',
+url: SITEURL + '/fullcalendar/delete',
 data: "&id=" + event.id,
 success: function (response) {
 if(parseInt(response) > 0) {
@@ -91,12 +95,8 @@ displayMessage("Deleted Successfully");
 });
 });
 function displayMessage(message) {
-$(".response").html("
-"+message+"
-");
+$(".response").html("<div class='success'>"+message+"</div>");
 setInterval(function() { $(".success").fadeOut(); }, 1000);
 }
 </script>
-@stop
-
 @endsection

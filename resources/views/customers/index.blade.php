@@ -15,11 +15,12 @@
                     <th>電話番号</th>
                 </tr>
             </thead>
+
             @foreach ($customers as $customer)
             <tr>
                 <td>{!! link_to_route('customers.show', $customer->userName, ['customer' => $customer->id]) !!}</td>
                 <td>{{ $customer->address }}</td>
-                <td>{{ $customer->telephoneNumber }}</td>    
+                <td>{{ $customer->telephoneNumber }}</td>
             </tr>
             @endforeach
         </table>

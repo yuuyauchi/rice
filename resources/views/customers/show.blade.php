@@ -17,7 +17,7 @@
             <tr>
                 <td>{{ $customer->userName }}</td>
                 <td>{{ $customer->address }}</td>
-                <td>{{ $customer->telephoneNumber }}</td>    
+                <td>{{ $customer->telephoneNumber }}</td>
             </tr>
         </table>
         

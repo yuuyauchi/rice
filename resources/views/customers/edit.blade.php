@@ -22,7 +22,6 @@
                     {!! Form::label('telephoneNumber', '電話番号:') !!}
                     {!! Form::text('telephoneNumber', null, ['class' => 'form-control']) !!}
                 </div>
-                
 
                 {!! Form::submit('更新', ['class' => 'btn btn-primary']) !!}
 
